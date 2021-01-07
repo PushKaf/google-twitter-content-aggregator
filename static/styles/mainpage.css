@@ -1,0 +1,28 @@
+.height {
+  margin: 0px;
+  padding:0px;
+  float: left;
+  width: 90%;
+  position:absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  left:50%;
+}
+
+.dropdown-content, .modal.open, .modal-footer{
+  background-color:#0A1325 !important;
+  color:whitesmoke !important;
+}
+
+.material-icons, .disabled span, .materialize-textarea, .validate, .select-dropdown{
+  color: whitesmoke !important;
+}
+
+ul.select-dropdown span {
+  color:#acb2c2;
+}
+
+li{
+  background-color:#0A1325 !important;
+  color:whitesmoke !important;
+}

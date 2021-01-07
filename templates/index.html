@@ -1,0 +1,135 @@
+{% extends "main.html" %}
+
+{% block content %}
+<script type=text/javascript>
+    $(document).ready(function() {
+        $(function() {
+          $('a#delete.secondary-content').click(function() {
+            var x = this.name;
+            const URL = '/deleteWhitelists'
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', URL);
+            xhr.send(x);
+
+            $.getJSON('/deleteWhitelists',
+                function(data) {
+                    console.log(data)
+            });
+          });
+        });
+    });
+</script>
+
+<div class="container space" style="height: 100vh;">
+    <div class="row center height valign-wrapper ">
+        <form class="col s12" method="post" >
+            <div class="row hoverable" >
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">search</i>
+                    <textarea id="icon_prefix2" name="searchQuery" class="materialize-textarea"></textarea>
+                    <label for="icon_prefix2">Search...</label>
+                </div>
+            </div>
+
+            <div class="input-field col s6">
+                <select name="whitelistQuery">
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Whitelist">Use Whitelists</option>
+                    <option value="no whitelist">No Whitelists</option>
+                </select>
+                <label>Whitelist Selection</label>
+            </div>
+
+            <div class="input-field col s6">
+                <select name="timeQuery">
+                    <option value="" disabled selected>Choose your option</option>
+                    <option value="Past Hour">Past Hour Search</option>
+                    <option value="24 Hour">24 Hours Search</option>
+                </select>
+                <label>Time Selection</label>
+            </div>
+
+            <button class="btn waves-effect waves-light col s12 light-blue accent-3 hoverable" type="submit" name="action">Go
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+
+    
+    <div class="fixed-action-btn modal-trigger">
+        <a class="btn-floating btn-large light-blue accent-3">
+            <i class="large material-icons">arrow_drop_up</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating red modal-trigger " href="#deleteWhitelistModal"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating transparent modal-trigger btn" href="#addGoogleWhitelistModal"><img alt="googleLogo" class="responsive-img" src="{{ url_for('static', filename='img/googleLogo.png')}}"></a></li>
+            <li><a class="btn-floating transparent modal-trigger btn" href="#addTwitterWhitelistModal"><img alt="googleLogo" class="responsive-img" src="{{ url_for('static', filename='img/twitterLogo.png')}}"></a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="addGoogleWhitelistModal" class="modal">
+    <div class="modal-content">
+        <h5><img class="responsive-img" style="width:3vh; height:3vh"alt="googleLogo" src="{{ url_for('static', filename='img/googleLogo.png')}}">  Add To Google Whitelist</h5>
+        <form method="post" id="googWhitelist" action="/addGoogleWhitelistModal/">
+            <div class="row" >
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">create</i>
+                    <input id="icon_prefix" type="text" class="validate" name="googleWhitelistAdd">
+                    <label for="icon_prefix">Whitelist...</label>
+                </div>
+            </div>
+            <p style="color:gray;">Note: Do <strong><u style="color:red;">NOT</u></strong> enter 'https://'' <br><br> <u>What To Do:</u><br> www.siteName.com</p>
+        </form>
+
+        <div class="modal-footer">
+            <button id="googleWhitelist" class="green btn hoverable" form="googWhitelist" type="submit" name="whitelist">Done</button>
+            <button class="modal-close red btn hoverable">close</button>
+        </div>
+
+    </div>
+
+</div>
+
+<div id="addTwitterWhitelistModal" class="modal">
+    <div class="modal-content">
+        <h5><img class="responsive-img" style="width:4vh; height:4vh"alt="twitterLogo" src="{{ url_for('static', filename='img/twitterLogo.png')}}">  Add To Twitter Whitelist</h5>
+        <form method="post" id="twitWhitelist" action="/addTwitterWhitelistModal/">
+            <div class="row" >
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">create</i>
+                    <input id="icon_prefix" type="text" class="validate" name="twitterWhitelistAdd">
+                    <label for="icon_prefix">Whitelist...</label>
+                </div>
+            </div>
+        </form>
+        <p style="color:gray;">Note: Enter thier @s without the @ symbol. <br><br> <u>Ex:</u><br> CNBC</p>
+    </div>
+    <div class="modal-footer">
+        <button class="modal-close green btn hoverable" form="twitWhitelist" type="submit" name="action">Done</button>
+        <button class="modal-close red btn hoverable">close</button>
+    </div>
+</div>
+
+<div id="deleteWhitelistModal" class="modal">
+    <div class="modal-content">
+        <ul class="collection with-header">
+            <li class="collection-header"><h4>Google Whitelists</h4></li>
+            {% for whitelists in data[0] %}
+                <li class="collection-item"><div>{{whitelists}}<a onclick="location.reload()" id="delete" class="secondary-content modal-close" name={{whitelists}}><i class="material-icons red circle">delete_forever</i></a></div></li>
+            {% endfor %}
+        </ul>
+
+        <ul class="collection with-header">
+            <li class="collection-header"><h4>Twitter Whitelists</h4></li>
+            {% for whitelists in data[1] %}
+                <li class="collection-item"><div>{{whitelists}}<a onclick="location.reload()" id="delete" class="secondary-content modal-close" name={{whitelists}}><i class="material-icons red circle">delete_forever</i></a></div></li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+{% endblock %}
+
