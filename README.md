@@ -1,12 +1,18 @@
 # Google-Twitter-Search
 
-<h2>Instructions:</h2>
-1. Download the files, in a zip<br>
-2. Extract the zip<br>
-3. Run the "Flask.py" file<br>
-4. Go to the server, "localhost:5000"<br>
-5. Done<br><br>
+#Introduction
+Content Aggregator, for twitter and google. Mostly used to get info on news about a certain Stock, with whitelisting for only the domain names you trust and are "reliable."
 
-<h3>Features:</h3>
--> Searches through google and twitter to find what you searched for<br>
--> Basically, the lastest news on  the subject yu want to know about<br>
+#Requirements
+'''pip install -r requirements.txt'''
+
+#Steps
+1. Downalod release or just clone repo
+2. Extract files
+3. Open cmd in folder where you extracted
+4. Preferably make an environment **(Optional)** 
+5. Install all required modules: '''pip install -r requirements.txt'''
+6. In CMD type: '''python Flask.py''' to run
+7. Open preffered browser
+8. Go to: localhost:5000
+9. Search :D
